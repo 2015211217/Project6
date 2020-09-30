@@ -7,10 +7,10 @@ import torch.nn.functional as F
 class ResBlock(nn.Module):
     def __init__(self, in_channels, out_channels, stride=1, downsample=None):
         super(ResBlock, self).__init__()
-        self.conv1 = nn.Conv2d(in_channels, out_channels, 3, stride, padding=1, bias=False)
+        self.conv1 = nn.Conv2d(in_channels, out_channels, stride, padding=1, bias=False)
         self.bn1 = nn.BatchNorm2d(out_channels)
         self.relu = nn.ReLU(inplace=True)
-        self.conv2 = nn.Conv2d(in_channels, out_channels, 3, stride, padding=1, bias=False)
+        self.conv2 = nn.Conv2d(out_channels, out_channels, stride, padding=1, bias=False)
         self.bn2 = nn.BatchNorm2d(out_channels)
         self.downsample = downsample
 
@@ -21,9 +21,7 @@ class ResBlock(nn.Module):
         x = self.relu(x)
         x = self.conv2(x)
         x = self.bn2(x)
-        if self.downsample:
-            residual = self.downsample(input)
-        x = x + residual
+
         output = self.relu(x)
         return output
 
@@ -36,9 +34,9 @@ class ResNet(nn.Module):
         self.bn = nn.BatchNorm2d(8)
         self.relu = nn.ReLU(inplace=True)
         self.layer1 = self.make_layer(block, 8, layers[0])
-        self.layer2 = self.make_layer(block, 8, layers[1], 2)
-        self.layer3 = self.make_layer(block, 8, layers[2], 2)
-        self.avg_pool = nn.AvgPool2d(kernel_size=16)
+        self.layer2 = self.make_layer(block, 16, layers[1])
+        self.layer3 = self.make_layer(block, 32, layers[2])
+        self.avg_pool = nn.AvgPool2d(kernel_size=8)
         self.fc = nn.Linear(8, num_classes)
 
     def make_layer(self, block, out_channels, blocks, stride=1):
@@ -66,5 +64,5 @@ class ResNet(nn.Module):
 
         x = self.avg_pool(x)
         x = x.view(x.size(0), -1)
-        x = self.fc(x)
+        # x = self.fc(x)
         return x
