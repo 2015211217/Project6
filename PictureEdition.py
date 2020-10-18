@@ -1,18 +1,11 @@
 #尝试加入一些新的图片，看看效果有没有提升
-import torch
-import torch.nn as nn
-import torch.optim as optim
-import torchvision
-import torchvision.transforms as transforms
-import argparse
-from ResNetModel import ResNet18
-from torch.autograd import Variable as V
 import csv
-import os
-from PIL import Image
-import numpy as np
+import os, random, shutil
+
 
 dir_test = "/Users/jiangxuanke/Desktop/issm2020-ai-challenge/semTest/"
+dir_train_3 = "/Users/jiangxuanke/Desktop/issm2020-ai-challenge/0003_original/"
+dir_train_3_sample = "/Users/jiangxuanke/Desktop/issm2020-ai-challenge/semTrain/0003/"
 csvFile = open("/Users/jiangxuanke/Desktop/issm2020-ai-challenge/TestResultHuman.csv", "w")  # 创建csv文件
 writer = csv.writer(csvFile)
 writer.writerow(["Id", "LABEL"])
@@ -32,25 +25,44 @@ group_8 = [6,23,30,38,84,115,152,159,164,192,301,333]
 group_9 = [74,90,153,202,241,272,240]
 group_10 = [4,10,12,13,21,31,33,56,72,75,88,107,144,148,169,207,208,253,262]
 for i in range(len(img_test)):
-    if image_number in group_10:
-        writer.writerow([image_number, 10])
-    elif image_number in group_2:
-        writer.writerow([image_number, 2])
-    elif image_number in group_3:
-        writer.writerow([image_number, 3])
-    elif image_number in group_4:
-        writer.writerow([image_number, 4])
-    elif image_number in group_5:
-        writer.writerow([image_number, 5])
-    elif image_number in group_6:
-        writer.writerow([image_number, 6])
-    elif image_number in group_7:
-        writer.writerow([image_number, 7])
-    elif image_number in group_8:
-        writer.writerow([image_number, 8])
-    elif image_number in group_9:
-        writer.writerow([image_number, 9])
-    else:
-        writer.writerow([image_number, 1])
+    writer.writerow([image_number, 3])
+# for i in range(len(img_test)):
+#     if image_number in group_10:
+#         writer.writerow([image_number, 10])
+#     elif image_number in group_2:
+#         writer.writerow([image_number, 2])
+#     elif image_number in group_3:
+#         writer.writerow([image_number, 3])
+#     elif image_number in group_4:
+#         writer.writerow([image_number, 4])
+#     elif image_number in group_5:
+#         writer.writerow([image_number, 5])
+#     elif image_number in group_6:
+#         writer.writerow([image_number, 6])
+#     elif image_number in group_7:
+#         writer.writerow([image_number, 7])
+#     elif image_number in group_8:
+#         writer.writerow([image_number, 8])
+#     elif image_number in group_9:
+#         writer.writerow([image_number, 9])
+#     else:
+#         writer.writerow([image_number, 1])
     image_number+=1
 
+
+def moveFile(fileDir):
+        pathDir = os.listdir(fileDir)    #取图片的原始路径
+        filenumber=len(pathDir)
+        rate = 0.3    #自定义抽取图片的比例，比方说100张抽10张，那就是0.1
+        picknumber=int(filenumber*rate) #按照rate比例从文件夹中取一定数量图片
+        sample = random.sample(pathDir, picknumber)  #随机选取picknumber数量的样本图片
+
+        for name in sample:
+                print(name)
+                shutil.move(fileDir+name, tarDir+name)
+        return
+
+if __name__ == '__main__':
+	fileDir = dir_train_3    #源图片文件夹路径
+	tarDir = dir_train_3_sample    #移动到新的文件夹路径
+	moveFile(fileDir)

@@ -4,7 +4,7 @@ import torch.optim as optim
 import torchvision
 import torchvision.transforms as transforms
 import argparse
-from ResNetModel import ResNet18
+from ResNetModel import ResNet18,FocalLoss_MultiLabel
 from torch.autograd import Variable as V
 import csv
 import os
@@ -22,31 +22,36 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # 超参数设置
 EPOCH = 20  # 遍历数据集次数
 pre_epoch = 0  # 定义已经遍历数据集的次数
-BATCH_SIZE = 32  # 批处理尺寸(batch_size)
-LR = 0.05  # 学习率
+BATCH_SIZE = 16   # 批处理尺寸(batch_size) 16
+LR = 0.05  # 学习率 0。05
 
 # 准备数据集并预处理
 transform_train = transforms.Compose([
-    transforms.RandomCrop(128, padding=4),
-    transforms.RandomHorizontalFlip(),  # 图像一半的概率翻转，一半的概率不翻转
+    transforms.CenterCrop(256),
+    transforms.RandomHorizontalFlip(),
+    transforms.RandomRotation(90),
     transforms.ToTensor(),
-    transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))  # R,G,B每层的归一化用到的均值和方差,啊这。。。
-    # transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+
+    # transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))  # R,G,B每层的归一化用到的均值和方差,啊这。。。
+    transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
 ])
 
 transform_validation = transforms.Compose([
-    transforms.RandomCrop(128),  # 先四周填充0，在吧图像随机裁剪成32*32
+    transforms.RandomCrop(256),
+    transforms.RandomHorizontalFlip(),
+    transforms.RandomRotation(90),
     transforms.ToTensor(),
-    # transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
-    transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))
+    transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))   #???????
+    # transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))
 ])
 
 transform_test = transforms.Compose([
-    transforms.RandomCrop(128),  # 先四周填充0，在吧图像随机裁剪成32*32
+    transforms.RandomCrop(256),
     transforms.ToTensor(),
-    # transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
-    transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))
+    transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))   #???????
+    # transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))
 ])
+
 
 trainset = torchvision.datasets.ImageFolder(dir_train, transform=transform_train)  # 训练数据集
 train_dataloader = torch.utils.data.DataLoader(trainset, batch_size=BATCH_SIZE, shuffle=True, num_workers=2)  # 生成一个个batch进行批训练，组成batch的时候顺序打乱取
@@ -57,47 +62,52 @@ validation_dataloader = torch.utils.data.DataLoader(validationset, batch_size=BA
 
 
 net = ResNet18().to(device)
-criterion = nn.CrossEntropyLoss()
+criterion = FocalLoss_MultiLabel()
 optimizer = optim.SGD(net.parameters(), lr=LR, momentum=0.9,
                       weight_decay=5e-4)  # 优化方式为mini-batch momentum-SGD，并采用L2正则化（权重衰减）
 # 训练
 if __name__ == "__main__":
     print("Start Training, Resnet-18!")  # 定义遍历数据集的次数
-    with open("log.txt", "w")as f2:
-        for epoch in range(pre_epoch, EPOCH):
-            print('\nEpoch: %d' % (epoch + 1))
-            net.train()
-            sum_loss = 0.0
-            correct = 0.0
-            total = 0.0
-            train_accuracy = 0
-            for i, data in enumerate(train_dataloader):
-                # 准备数据
-                length = len(train_dataloader)
-                inputs, labels = data
-                inputs, labels = inputs.to(device), labels.to(device)
-                optimizer.zero_grad()
-
-                # forward + backward
-                outputs = net(inputs)
-                loss = criterion(outputs, labels)
-
-                loss.backward()
-                optimizer.step()
-                # 每训练1个batch打印一次loss和准确率
-                sum_loss += loss.item()
-                _, predicted = torch.max(outputs.data, 1)
-                total += labels.size(0)
-                correct += predicted.eq(labels.data).cpu().sum()
-                print('[epoch:%d, iter:%d] Loss: %.03f | Acc: %.3f%% '
-                      % (epoch + 1, (i + 1 + epoch * length), sum_loss / (i + 1), 100. * correct / total))
-                if 100. * correct / total > train_accuracy:
-                    torch.save(net.state_dict(), dir_model_save)
-                  # '%s/net_%03d.pth' % (args.outf, epoch + 1)
-                f2.write('%03d  %05d |Loss: %.03f | Acc: %.3f%% '
-                         % (epoch + 1, (i + 1 + epoch * length), sum_loss / (i + 1), 100. * correct / total))
-                f2.write('\n')
-                f2.flush()
+    # with open("log.txt", "w")as f2:
+    #     for epoch in range(pre_epoch, EPOCH):
+    #         print('\nEpoch: %d' % (epoch + 1))
+    #         net.train()
+    #         sum_loss = 0.0
+    #         correct = 0.0
+    #         total = 0.0
+    #         train_accuracy = 0
+    #         for i, data in enumerate(train_dataloader):
+    #             # 准备数据
+    #             length = len(train_dataloader)
+    #             inputs, labels = data
+    #             inputs, labels = inputs.to(device), labels.to(device)
+    #             optimizer.zero_grad()
+    #
+    #             # forward + backward
+    #             outputs = net(inputs)
+    #
+    #             print(outputs)
+    #             print(labels)
+    #
+    #             loss = criterion(outputs, labels)
+    #
+    #
+    #             loss.backward()
+    #             optimizer.step()
+    #             # 每训练1个batch打印一次loss和准确率
+    #             sum_loss += loss.item()
+    #             _, predicted = torch.max(outputs.data, 1)
+    #             total += labels.size(0)
+    #             correct += predicted.eq(labels.data).cpu().sum()
+    #             print('[epoch:%d, iter:%d] Loss: %.03f | Acc: %.3f%% '
+    #                   % (epoch + 1, (i + 1 + epoch * length), sum_loss / (i + 1), 100. * correct / total))
+    #             if 100. * correct / total > train_accuracy:
+    #                 torch.save(net.state_dict(), dir_model_save)
+    #               # '%s/net_%03d.pth' % (args.outf, epoch + 1)
+    #             f2.write('%03d  %05d |Loss: %.03f | Acc: %.3f%% '
+    #                      % (epoch + 1, (i + 1 + epoch * length), sum_loss / (i + 1), 100. * correct / total))
+    #             f2.write('\n')
+    #             f2.flush()
 
     net = ResNet18().to(device)  # 先定义net的结构
     net.load_state_dict(torch.load(dir_model_save))
@@ -115,7 +125,7 @@ if __name__ == "__main__":
     for i in range(len(img_test)):
         img = Image.open(dir_test + img_test[i])
         # img = img.convert('RGB')
-        input = transform_test(img)
+        input = transform_test(img).cuda()
 
         input = input.unsqueeze(0)
 
