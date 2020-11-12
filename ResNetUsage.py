@@ -63,51 +63,52 @@ validation_dataloader = torch.utils.data.DataLoader(validationset, batch_size=BA
 
 net = ResNet18().to(device)
 criterion = FocalLoss_MultiLabel()
+criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(net.parameters(), lr=LR, momentum=0.9,
                       weight_decay=5e-4)  # 优化方式为mini-batch momentum-SGD，并采用L2正则化（权重衰减）
+CosineLR = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=150, eta_min=0.00001)
 # 训练
 if __name__ == "__main__":
     print("Start Training, Resnet-18!")  # 定义遍历数据集的次数
-    # with open("log.txt", "w")as f2:
-    #     for epoch in range(pre_epoch, EPOCH):
-    #         print('\nEpoch: %d' % (epoch + 1))
-    #         net.train()
-    #         sum_loss = 0.0
-    #         correct = 0.0
-    #         total = 0.0
-    #         train_accuracy = 0
-    #         for i, data in enumerate(train_dataloader):
-    #             # 准备数据
-    #             length = len(train_dataloader)
-    #             inputs, labels = data
-    #             inputs, labels = inputs.to(device), labels.to(device)
-    #             optimizer.zero_grad()
-    #
-    #             # forward + backward
-    #             outputs = net(inputs)
-    #
-    #             print(outputs)
-    #             print(labels)
-    #
-    #             loss = criterion(outputs, labels)
-    #
-    #
-    #             loss.backward()
-    #             optimizer.step()
-    #             # 每训练1个batch打印一次loss和准确率
-    #             sum_loss += loss.item()
-    #             _, predicted = torch.max(outputs.data, 1)
-    #             total += labels.size(0)
-    #             correct += predicted.eq(labels.data).cpu().sum()
-    #             print('[epoch:%d, iter:%d] Loss: %.03f | Acc: %.3f%% '
-    #                   % (epoch + 1, (i + 1 + epoch * length), sum_loss / (i + 1), 100. * correct / total))
-    #             if 100. * correct / total > train_accuracy:
-    #                 torch.save(net.state_dict(), dir_model_save)
-    #               # '%s/net_%03d.pth' % (args.outf, epoch + 1)
-    #             f2.write('%03d  %05d |Loss: %.03f | Acc: %.3f%% '
-    #                      % (epoch + 1, (i + 1 + epoch * length), sum_loss / (i + 1), 100. * correct / total))
-    #             f2.write('\n')
-    #             f2.flush()
+    with open("log.txt", "w")as f2:
+        for epoch in range(pre_epoch, EPOCH):
+            print('\nEpoch: %d' % (epoch + 1))
+            net.train()
+            sum_loss = 0.0
+            correct = 0.0
+            total = 0.0
+            train_accuracy = 0
+            for i, data in enumerate(train_dataloader):
+                # 准备数据
+                length = len(train_dataloader)
+                inputs, labels = data
+                inputs, labels = inputs.to(device), labels.to(device)
+                optimizer.zero_grad()
+
+                # forward + backward
+                outputs = net(inputs)
+
+                print(outputs)
+                print(labels)
+                loss = criterion(outputs, labels)
+
+
+                loss.backward()
+                optimizer.step()
+                # 每训练1个batch打印一次loss和准确率
+                sum_loss += loss.item()
+                _, predicted = torch.max(outputs.data, 1)
+                total += labels.size(0)
+                correct += predicted.eq(labels.data).cpu().sum()
+                print('[epoch:%d, iter:%d] Loss: %.03f | Acc: %.3f%% '
+                      % (epoch + 1, (i + 1 + epoch * length), sum_loss / (i + 1), 100. * correct / total))
+                if 100. * correct / total > train_accuracy:
+                    torch.save(net.state_dict(), dir_model_save)
+                  # '%s/net_%03d.pth' % (args.outf, epoch + 1)
+                f2.write('%03d  %05d |Loss: %.03f | Acc: %.3f%% '
+                         % (epoch + 1, (i + 1 + epoch * length), sum_loss / (i + 1), 100. * correct / total))
+                f2.write('\n')
+                f2.flush()
 
     net = ResNet18().to(device)  # 先定义net的结构
     net.load_state_dict(torch.load(dir_model_save))
@@ -125,7 +126,7 @@ if __name__ == "__main__":
     for i in range(len(img_test)):
         img = Image.open(dir_test + img_test[i])
         # img = img.convert('RGB')
-        input = transform_test(img).cuda()
+        input = transform_test(img)
 
         input = input.unsqueeze(0)
 

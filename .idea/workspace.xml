@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e1cdb5f1-6468-4108-a1ec-3c9887862638" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ResNetKernelVersion.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CNN.py" beforeDir="false" afterPath="$PROJECT_DIR$/EfficientNet.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PictureEdition.py" beforeDir="false" afterPath="$PROJECT_DIR$/PictureEdition.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ResNetModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/ResNetModel.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ResNetUsage.py" beforeDir="false" afterPath="$PROJECT_DIR$/ResNetUsage.py" afterDir="false" />
@@ -159,8 +157,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.ResNetUsage" />
-        <item itemvalue="Python.EfficientNet" />
         <item itemvalue="Python.PictureEdition" />
+        <item itemvalue="Python.EfficientNet" />
         <item itemvalue="Python.ResNetModel" />
         <item itemvalue="Python.ResNet_Base" />
       </list>
@@ -181,7 +179,8 @@
       <workItem from="1601395288944" duration="25724000" />
       <workItem from="1602126431739" duration="30920000" />
       <workItem from="1602598430908" duration="725000" />
-      <workItem from="1602661051516" duration="4525000" />
+      <workItem from="1602661051516" duration="13103000" />
+      <workItem from="1605161421321" duration="1148000" />
     </task>
     <servers />
   </component>
@@ -201,34 +200,34 @@
       <screen x="0" y="23" width="1440" height="799" />
     </state>
     <state x="458" y="177" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1440.799@0.23.1440.799" timestamp="1601737852670" />
-    <state width="1398" height="201" key="GridCell.Tab.0.bottom" timestamp="1603024244820">
-      <screen x="0" y="23" width="1440" height="799" />
+    <state width="1398" height="201" key="GridCell.Tab.0.bottom" timestamp="1603815379074">
+      <screen x="0" y="23" width="1440" height="805" />
     </state>
-    <state width="1398" height="201" key="GridCell.Tab.0.bottom/0.23.1440.799@0.23.1440.799" timestamp="1603024244820" />
-    <state width="1398" height="201" key="GridCell.Tab.0.bottom/0.23.1440.800@0.23.1440.800" timestamp="1602398604106" />
+    <state width="1398" height="201" key="GridCell.Tab.0.bottom/0.23.1440.799@0.23.1440.799" timestamp="1603329565355" />
+    <state width="1398" height="201" key="GridCell.Tab.0.bottom/0.23.1440.800@0.23.1440.800" timestamp="1603035228737" />
     <state width="1398" height="201" key="GridCell.Tab.0.bottom/0.23.1440.803@0.23.1440.803" timestamp="1602430021870" />
-    <state width="1398" height="203" key="GridCell.Tab.0.bottom/0.23.1440.805@0.23.1440.805" timestamp="1602254507777" />
-    <state width="1398" height="201" key="GridCell.Tab.0.center" timestamp="1603024244820">
-      <screen x="0" y="23" width="1440" height="799" />
+    <state width="1398" height="201" key="GridCell.Tab.0.bottom/0.23.1440.805@0.23.1440.805" timestamp="1603815379074" />
+    <state width="1398" height="201" key="GridCell.Tab.0.center" timestamp="1603815379074">
+      <screen x="0" y="23" width="1440" height="805" />
     </state>
-    <state width="1398" height="201" key="GridCell.Tab.0.center/0.23.1440.799@0.23.1440.799" timestamp="1603024244820" />
-    <state width="1398" height="201" key="GridCell.Tab.0.center/0.23.1440.800@0.23.1440.800" timestamp="1602398604105" />
+    <state width="1398" height="201" key="GridCell.Tab.0.center/0.23.1440.799@0.23.1440.799" timestamp="1603329565354" />
+    <state width="1398" height="201" key="GridCell.Tab.0.center/0.23.1440.800@0.23.1440.800" timestamp="1603035228736" />
     <state width="1398" height="201" key="GridCell.Tab.0.center/0.23.1440.803@0.23.1440.803" timestamp="1602430021869" />
-    <state width="1398" height="203" key="GridCell.Tab.0.center/0.23.1440.805@0.23.1440.805" timestamp="1602254507773" />
-    <state width="1398" height="201" key="GridCell.Tab.0.left" timestamp="1603024244819">
-      <screen x="0" y="23" width="1440" height="799" />
+    <state width="1398" height="201" key="GridCell.Tab.0.center/0.23.1440.805@0.23.1440.805" timestamp="1603815379074" />
+    <state width="1398" height="201" key="GridCell.Tab.0.left" timestamp="1603815379073">
+      <screen x="0" y="23" width="1440" height="805" />
     </state>
-    <state width="1398" height="201" key="GridCell.Tab.0.left/0.23.1440.799@0.23.1440.799" timestamp="1603024244819" />
-    <state width="1398" height="201" key="GridCell.Tab.0.left/0.23.1440.800@0.23.1440.800" timestamp="1602398604105" />
+    <state width="1398" height="201" key="GridCell.Tab.0.left/0.23.1440.799@0.23.1440.799" timestamp="1603329565354" />
+    <state width="1398" height="201" key="GridCell.Tab.0.left/0.23.1440.800@0.23.1440.800" timestamp="1603035228736" />
     <state width="1398" height="201" key="GridCell.Tab.0.left/0.23.1440.803@0.23.1440.803" timestamp="1602430021869" />
-    <state width="1398" height="203" key="GridCell.Tab.0.left/0.23.1440.805@0.23.1440.805" timestamp="1602254507773" />
-    <state width="1398" height="201" key="GridCell.Tab.0.right" timestamp="1603024244820">
-      <screen x="0" y="23" width="1440" height="799" />
+    <state width="1398" height="201" key="GridCell.Tab.0.left/0.23.1440.805@0.23.1440.805" timestamp="1603815379073" />
+    <state width="1398" height="201" key="GridCell.Tab.0.right" timestamp="1603815379074">
+      <screen x="0" y="23" width="1440" height="805" />
     </state>
-    <state width="1398" height="201" key="GridCell.Tab.0.right/0.23.1440.799@0.23.1440.799" timestamp="1603024244820" />
-    <state width="1398" height="201" key="GridCell.Tab.0.right/0.23.1440.800@0.23.1440.800" timestamp="1602398604105" />
+    <state width="1398" height="201" key="GridCell.Tab.0.right/0.23.1440.799@0.23.1440.799" timestamp="1603329565355" />
+    <state width="1398" height="201" key="GridCell.Tab.0.right/0.23.1440.800@0.23.1440.800" timestamp="1603035228737" />
     <state width="1398" height="201" key="GridCell.Tab.0.right/0.23.1440.803@0.23.1440.803" timestamp="1602430021869" />
-    <state width="1398" height="203" key="GridCell.Tab.0.right/0.23.1440.805@0.23.1440.805" timestamp="1602254507776" />
+    <state width="1398" height="201" key="GridCell.Tab.0.right/0.23.1440.805@0.23.1440.805" timestamp="1603815379074" />
     <state width="1398" height="254" key="GridCell.Tab.1.bottom" timestamp="1602430021853">
       <screen x="0" y="23" width="1440" height="803" />
     </state>
@@ -249,10 +248,15 @@
     </state>
     <state width="1398" height="254" key="GridCell.Tab.1.right/0.23.1440.799@0.23.1440.799" timestamp="1602337015205" />
     <state width="1398" height="254" key="GridCell.Tab.1.right/0.23.1440.803@0.23.1440.803" timestamp="1602430021853" />
-    <state x="229" y="61" key="SettingsEditor" timestamp="1600609974315">
-      <screen x="0" y="23" width="1440" height="799" />
+    <state x="229" y="61" key="SettingsEditor" timestamp="1605191528901">
+      <screen x="0" y="23" width="1440" height="807" />
     </state>
     <state x="229" y="61" key="SettingsEditor/0.23.1440.799@0.23.1440.799" timestamp="1600609974315" />
+    <state x="229" y="61" key="SettingsEditor/0.23.1440.807@0.23.1440.807" timestamp="1605191528901" />
+    <state x="421" y="177" width="598" height="490" key="find.popup" timestamp="1603338066377">
+      <screen x="0" y="23" width="1440" height="799" />
+    </state>
+    <state x="421" y="177" width="598" height="490" key="find.popup/0.23.1440.799@0.23.1440.799" timestamp="1603338066377" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -268,8 +272,8 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ISSM$ResNet_Base.coverage" NAME="ResNet_Base Coverage Results" MODIFIED="1600612085871" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ISSM$EfficientNet.coverage" NAME="EfficientNet Coverage Results" MODIFIED="1603006742996" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ISSM$ResNetUsage.coverage" NAME="ResNetUsage Coverage Results" MODIFIED="1603024244805" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ISSM$PictureEdition.coverage" NAME="PictureEdition Coverage Results" MODIFIED="1602337354062" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ISSM$ResNetUsage.coverage" NAME="ResNetUsage Coverage Results" MODIFIED="1603329565348" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ISSM$PictureEdition.coverage" NAME="PictureEdition Coverage Results" MODIFIED="1603036003561" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ISSM$ResNetModel.coverage" NAME="ResNetModel Coverage Results" MODIFIED="1601473768065" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

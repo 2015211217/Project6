@@ -38,8 +38,8 @@ class ResNet(nn.Module):
         self.layer2 = self.make_layer(ResidualBlock, 32, 2, stride=2)
         self.layer3 = self.make_layer(ResidualBlock, 64, 2, stride=2)
         self.layer4 = self.make_layer(ResidualBlock, 128, 2, stride=2)
-        self.layer5 = self.make_layer(ResidualBlock, 256, 2, stride=2)
-        self.fc = nn.Sequential(nn.Linear(64*64*32, num_classes))#fully connected
+        # self.layer5 = self.make_layer(ResidualBlock, 256, 2, stride=2)
+        self.fc = nn.Sequential(nn.Linear(64*64*2, num_classes))#fully connected
 
     def make_layer(self, block, channels, num_blocks, stride):
         strides = [stride] + [1] * (num_blocks - 1)  # strides=[1,1]
@@ -55,6 +55,9 @@ class ResNet(nn.Module):
         out = self.layer2(out)
         out = self.layer3(out)
         out = self.layer4(out)
+        # out = self.layer5(out)
+        out = F.avg_pool2d(out, 4)
+
         # out_size = out.size(0)*out.size(1)*out.size(2)*out.size(3)
         # out_size = out_size//128
         out = out.view(out.size(0), -1)
@@ -90,9 +93,10 @@ class FocalLoss(nn.Module):
         class_mask = torch.zeros(pred.shape[0],pred.shape[1])
         # 这里的 scatter_ 操作不常用，其函数原型为:
         # scatter_(dim,index,src)->Tensor
+        CosineLR = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=150, eta_min=0.00001)
         # Writes all values from the tensor src into self at the indices specified in the index tensor.
         # For each value in src, its output index is specified by its index in src for dimension != dim and by the corresponding value in index for dimension = dim.
-        class_mask.scatter_(1, target.view(-1, 1).long(), 1.)
+        # class_mask.scatter_(1, target.view(-1, 1).long(), 1.)
 
         # 利用 mask 将所需概率值挑选出来
         probs = (pred * class_mask).sum(dim=1).view(-1,1)
